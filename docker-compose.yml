@@ -41,7 +41,7 @@ services:
     image: portfolio/web-${USER}
     build: ./web/
     restart: unless-stopped
-    command: npm run dev
+    command: npx next dev -H 0.0.0.0
     depends_on:
       - api
       - database

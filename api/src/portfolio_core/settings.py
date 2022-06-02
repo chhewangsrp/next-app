@@ -30,7 +30,7 @@ HOST_NAME = os.getenv("HOST_NAME")
 PORT_WEB = os.getenv("PORT_WEB", "3001")
 PORT_API = os.getenv("PORT_API", None)
 
-ALLOWED_HOSTS = [f"http://{HOST_NAME}:{PORT_API}", f"http://{HOST_NAME}:{PORT_WEB}"]
+ALLOWED_HOSTS = [HOST_NAME,f"http://{HOST_NAME}:{PORT_API}", f"http://{HOST_NAME}:{PORT_WEB}"]
 
 
 # Application definition
