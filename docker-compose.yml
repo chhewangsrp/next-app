@@ -1,0 +1,53 @@
+version: '3.7'
+
+services:
+  # Postgres
+  database:
+    image: portfolio/postgres-${USER}
+    build: ./db/
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: django_portfolio
+      ALLOW_IP_RANGE: 0.0.0.0/0
+    ports:
+      - 5432
+
+  # Django API development server
+  api:
+    image: portfolio/api-${USER}
+    build:
+      context: ./api/
+      args:
+        USER: ${USER}
+        UID: ${UID}
+    restart: unless-stopped
+    command: python manage.py runserver 0.0.0.0:8080
+    depends_on:
+      - database
+    environment:
+      - DEBUG=true
+      - HOST_NAME
+      - PORT_WEB
+      - PORT_API
+    ports:
+      - ${PORT_API}:8080
+    volumes:
+      # Mount local dev files into container
+      - ./api/src:/portfolio/
+
+  # Node-based Next.js Webapp Development Server
+  web:
+    image: portfolio/web-${USER}
+    build: ./web/
+    restart: unless-stopped
+    command: npm run dev
+    depends_on:
+      - api
+      - database
+    environment:
+      - ENV
+    volumes:
+      - ./web/:/portfolio/
+    ports:
+      - ${PORT_WEB}:3000
