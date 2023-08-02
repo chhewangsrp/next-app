@@ -1,33 +1,14 @@
-FROM python:3.6
+# Use an official OpenJDK base image
+FROM openjdk:20-jdk-slim
 
-ARG APPDIR=/portfolio/
-WORKDIR ${APPDIR}
+# Set the working directory inside the container
+WORKDIR /app
 
-ENV PYTHONPATH ${APPDIR}
-ENV PYTHONBUFFERED 1
+# Copy the Spring Boot JAR file into the container
+COPY target/api-0.0.1-SNAPSHOT.jar /app/api.jar
 
-RUN apt-get clean all && \
-    apt-get update && \
-    apt-get dist-upgrade -y && \
-    apt-get autoremove && \
-    apt-get install --fix-missing -y sudo netcat zip unzip ca-certificates libsasl2-dev libldap2-dev
+# Expose the port that the Spring Boot application listens on
+EXPOSE 8080
 
-ADD requirements.txt requirements.dev.txt ${APPDIR}
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
-
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod 777 /entrypoint.sh
-
-# Configure user
-ARG USER
-ARG UID
-RUN useradd --create-home --shell /bin/bash -u $UID -G users,sudo,root $USER && \
-    mkdir -p /home/$USER/.ssh/ && \
-    chown $USER:users /home/$USER/.ssh/ && \
-    echo $USER:workspace | chpasswd
-
-USER $USER
-ENV HOME /home/$USER
-
-ENTRYPOINT [ "/entrypoint.sh" ]
+# Set the entrypoint to run the Spring Boot application
+ENTRYPOINT ["java", "-jar", "/app/api.jar"]

@@ -7,13 +7,14 @@ services:
     build: ./db/
     restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_DB: django_portfolio
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       ALLOW_IP_RANGE: 0.0.0.0/0
     ports:
       - 5432
 
-  # Django API development server
+  # Spring Boot API development server
   api:
     image: portfolio/api-${USER}
     build:
@@ -22,14 +23,15 @@ services:
         USER: ${USER}
         UID: ${UID}
     restart: unless-stopped
-    command: python manage.py runserver 0.0.0.0:8080
+    command: ["java", "-jar", "/portfolio/your-spring-app.jar"]
     depends_on:
       - database
     environment:
-      - DEBUG=true
-      - HOST_NAME
-      - PORT_WEB
-      - PORT_API
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/${POSTGRES_DB}"
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_LOGGING_LEVEL_ROOT: INFO
+      SPRING_SERVER_PORT: 5000
     ports:
       - ${PORT_API}:8080
     volumes:
