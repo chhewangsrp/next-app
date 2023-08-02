@@ -18,25 +18,24 @@ services:
   # Spring Boot API development server
   api:
     image: portfolio/api-${USER}
+    container_name: portfolio
     build:
       context: ./api/
       args:
         USER: ${USER}
         UID: ${UID}
     restart: unless-stopped
-    command: ["java", "-jar", "/portfolio/your-spring-app.jar"]
     depends_on:
       - database
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
-      SPRING_LOGGING_LEVEL_ROOT: INFO
     ports:
       - ${PORT_API}:8080
     volumes:
       # Mount local dev files into container
-      - ./api/:/portfolio/
+      - ./api:/portfolio
 
   # Node-based Next.js Webapp Development Server
   web:

@@ -2,13 +2,13 @@
 FROM openjdk:20-jdk-slim
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /portfolio
 
-# Copy the Spring Boot JAR file into the container
-COPY target/api-0.0.1-SNAPSHOT.jar /app/api.jar
 
-# Expose the port that the Spring Boot application listens on
-EXPOSE 8080
+# Copy the Spring Boot application files to the container
+COPY . .
 
-# Set the entrypoint to run the Spring Boot application
-ENTRYPOINT ["java", "-jar", "/app/api.jar"]
+# Set the active profile to "dev"
+ENV SPRING_PROFILES_ACTIVE=dev
+
+CMD ["./mvnw", "spring-boot:run"]
