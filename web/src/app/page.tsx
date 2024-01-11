@@ -12,7 +12,7 @@ export default function Home() {
           height={37}
           priority
         /> */}
-        <iframe src="https://giphy.com/embed/ynpS4KW1JHMI31orRT" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><a href="https://giphy.com/gifs/rvappstudios-i-love-you-u-ynpS4KW1JHMI31orRT"></a>
+        <iframe src="https://giphy.com/embed/l2YSgsunrP27ddQje" width="480" height="351" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/spongebob-l2YSgsunrP27ddQje"></a></p>
       </div>
     </main>
   )
