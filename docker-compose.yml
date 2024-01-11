@@ -26,6 +26,7 @@ services:
     depends_on:
       - database
     environment:
+      - RUN_SETUP_DJANGO=true
       - DEBUG=true
       - HOST_NAME
       - PORT_WEB
@@ -46,8 +47,10 @@ services:
       - api
       - database
     environment:
-      - ENV
+      - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
     volumes:
       - ./web/:/portfolio/
     ports:
       - ${PORT_WEB}:3000
+      - 49153:49153

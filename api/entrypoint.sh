@@ -7,9 +7,9 @@ while ! nc -z database 5432; do
 done
 
 echo "PostgreSQL started"
-
 # Apply migrations, create database tables
-if ["$RUN_SETUP_DJANGO" = "true"]; then
+if [ "$RUN_SETUP_DJANGO" = "true" ]; then
+    echo "Django Is startedddd"
     python manage.py migrate
 fi
 

@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.12.1
 
 ARG APPDIR=/portfolio/
 WORKDIR ${APPDIR}
@@ -10,7 +10,7 @@ RUN apt-get clean all && \
     apt-get update && \
     apt-get dist-upgrade -y && \
     apt-get autoremove && \
-    apt-get install --fix-missing -y sudo netcat zip unzip ca-certificates libsasl2-dev libldap2-dev
+    apt-get install --fix-missing -y sudo netcat-traditional zip unzip ca-certificates libsasl2-dev libldap2-dev
 
 ADD requirements.txt requirements.dev.txt ${APPDIR}
 RUN pip install --upgrade pip && \

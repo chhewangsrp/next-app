@@ -30,7 +30,11 @@ HOST_NAME = os.getenv("HOST_NAME")
 PORT_WEB = os.getenv("PORT_WEB", "3001")
 PORT_API = os.getenv("PORT_API", None)
 
-ALLOWED_HOSTS = [HOST_NAME,f"http://{HOST_NAME}:{PORT_API}", f"http://{HOST_NAME}:{PORT_WEB}"]
+ALLOWED_HOSTS = [
+    HOST_NAME,
+    f"http://{HOST_NAME}:{PORT_API}",
+    f"http://{HOST_NAME}:{PORT_WEB}",
+]
 
 
 # Application definition
@@ -55,7 +59,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "portfolio_core.urls"
+ROOT_URLCONF = "portfolio.urls"
 
 TEMPLATES = [
     {
@@ -73,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "portfolio_core.wsgi.application"
+WSGI_APPLICATION = "portfolio.wsgi.application"
 
 
 # Database
