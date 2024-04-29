@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: chhewangsrpnextapp 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chhewangsrpnextapp
+  template:
+    metadata:
+      labels:
+        app: chhewangsrpnextapp 
+    spec:
+      containers:
+        - name: chhewangsrpnextapp 
+          image: portfoliocontainerreg.azurecr.io/chhewangsrpnextapp
+          ports:
+          - containerPort: 80
