@@ -3,7 +3,7 @@ version: '3.7'
 services:
   # Postgres
   database:
-    image: portfolio/postgres-${USER}
+    image: portfoliocontainerreg.azurecr.io/postgres
     build: ./db/
     restart: unless-stopped
     environment:
@@ -15,7 +15,7 @@ services:
 
   # Django API development server
   api:
-    image: portfolio/api-${USER}
+    image: portfoliocontainerreg.azurecr.io/api
     build:
       context: ./api/
       args:
@@ -39,7 +39,7 @@ services:
 
   # Node-based Next.js Webapp Development Server
   web:
-    image: portfolio/web-${USER}
+    image: portfoliocontainerreg.azurecr.io/web
     build: ./web/
     restart: unless-stopped
     command: npm run dev

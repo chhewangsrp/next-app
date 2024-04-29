@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Compose
+        uses: docker/compose-cli@v1
+        with:
+          compose-cli-version: "latest"
+
+      - name: Build and run Docker services
+        run: |
+          docker-compose up --build -d
