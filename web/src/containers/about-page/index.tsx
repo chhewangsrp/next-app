@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { motion } from "framer-motion";
 import myImage from "@/assets/myImage/my_pic.jpg";
 import { loadAbout } from '@/state/actions/about';
-
+import { RootState } from '@/state/store';
 
 type Props = {}
 
@@ -19,7 +19,7 @@ export default function About({ }: Props) {
 
     React.useEffect(() => {
         dispatch(loadAbout());
-    }, []);
+    }, [dispatch]);
 
 
     return (

@@ -17,7 +17,7 @@ export default function Hero({ }: Props) {
 
     React.useEffect(() => {
         dispatch(loadAbout());
-    }, []);
+    }, [dispatch]);
 
     const [text, count] = useTypewriter({
         words: aboutData?.describeMe,
