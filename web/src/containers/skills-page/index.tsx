@@ -15,7 +15,7 @@ export default function Skills({ }: Props) {
 
     React.useEffect(() => {
         dispatch(loadSkills())
-    }, [])
+    }, [dispatch])
 
     const skillsArray = Object.entries(skillsData);
 
