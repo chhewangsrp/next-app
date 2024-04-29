@@ -1,3 +1,8 @@
+import { StaticImageData } from 'next/image'
+
+import l3HarrisLogo from "@/assets/companyLogo/l3HarrisLogo.jpg"
+import navSeaLogo from "@/assets/companyLogo/navseaLogo.jpg"
+import noaaCrestLogo from "@/assets/companyLogo/noaaCrestLogo.png"
 
 export const tools: { [key: string]: string[] } = {
     "Software Engineer-L3Harris": [
@@ -16,4 +21,10 @@ export const tools: { [key: string]: string[] } = {
         "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/285_R_Project_logo-512.png",
     ]
 
+}
+
+export const companyLogo: { [key: string]: StaticImageData[] } = {
+    "Software Engineer-L3Harris": [l3HarrisLogo],
+    "Software Engineer Intern-Naval Undersea Warfare Center Keyport Division": [navSeaLogo],
+    "NOAA Undergraduate Scholar-NOAA-CREST": [noaaCrestLogo]
 }

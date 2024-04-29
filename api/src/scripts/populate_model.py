@@ -1,7 +1,10 @@
+import os
 from datetime import datetime
 
 from about.models import About
 from experience.models import Experience
+from skills.models import Skills
+from django.contrib.auth.models import User
 
 ABOUT = "I am a software engineer who loves soccer, music, and life."
 DESCRIBE_ME = [
@@ -65,6 +68,77 @@ EXPERIENCE = [
     },
 ]
 
+SKILLS = [
+    {
+        "name": "Python",
+        "description": """
+            Python is an interpreted, high-level, general-purpose programming language.
+            It is dynamically typed and garbage-collected.
+            It supports multiple programming paradigms, including object-oriented, imperative, functional, and procedural,
+            and has a large and comprehensive standard library.
+            """,
+        "skill_level": 90,
+    },
+    {
+        "name": "Django",
+        "description": """
+            Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design.
+            Built by experienced developers, it takes care of much of the hassle of Web development,
+            so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
+            """,
+        "skill_level": 80,
+    },
+    {
+        "name": "React",
+        "description": """
+            React is a JavaScript library for building user interfaces.
+            It is maintained by Facebook and a community of individual developers and companies.
+            React can be used as a base in the development of single-page or mobile applications.
+            """,
+        "skill_level": 80,
+    },
+    {
+        "name": "git",
+        "description": """
+            Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
+            """,
+        "skill_level": 80,
+    },
+    {
+        "name": "Docker",
+        "description": """
+            Docker is a set of platform as a service products that use OS-level virtualization to deliver software in packages called containers.
+            Containers are isolated from one another and bundle their own software, libraries and configuration files;
+            they can communicate with each other through well-defined channels.
+            """,
+        "skill_level": 80,
+    },
+    {
+        "name": "teamCity",
+        "description": """
+            TeamCity is a continuous integration and continuous delivery (CI/CD) server.
+            """,
+        "skill_level": 80,
+    },
+    {
+        "name": "Redux",
+        "description": """
+            Redux is a predictable state container for JavaScript apps.
+            It helps you write applications that behave consistently, run in different environments (client, server, and native),
+            and are easy to test. On top of that, it provides a great developer experience, such as live code editing combined with a time traveling debugger.
+            """,
+        "skill_level": 70,
+    },
+    {
+        "name": "PostgreSQL",
+        "description": """
+            PostgreSQL is a powerful, open source object-relational database system.
+            It has more than 15 years of active development and a proven architecture that has earned it a strong reputation for reliability, data integrity, and correctness.
+            """,
+        "skill_level": 70,
+    },
+]
+
 
 # Define function to populate About model
 def populate_about():
@@ -108,6 +182,24 @@ def populate_experience():
         experience.save()
 
 
+def populate_skills():
+    skill = Skills()
+    for skill_data in SKILLS:
+        skill = Skills(
+            name=skill_data["name"],
+            description=skill_data["description"],
+            skill_level=skill_data["skill_level"],
+        )
+        skill.save()
+
+
+def populate_users():
+    User.objects.create_user(
+        email=os.getenv("USER_EMAIL"),
+    )
+
+
 # Populate the About model
 populate_about()
 populate_experience()
+populate_skills()

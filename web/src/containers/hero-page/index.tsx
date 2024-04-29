@@ -33,7 +33,9 @@ export default function Hero({ }: Props) {
                 src={myImage}
                 height="100"
                 width="100"
-                priority={true} />
+                priority={true}
+                onError={() => { }}
+            />
             <div className='z-20'>
                 <h2 className='text-sm uppsercase text-gray-500 pb-2 
                 tracking-[15px]'>
@@ -54,8 +56,8 @@ export default function Hero({ }: Props) {
                     <Link href="#skills">
                         <button className='heroButton'>Skills</button>
                     </Link>
-                    <Link href="#projects">
-                        <button className='heroButton'>Projects</button>
+                    <Link href="#contact">
+                        <button className='heroButton'>Contact</button>
                     </Link>
                 </div>
             </div>

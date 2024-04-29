@@ -2,10 +2,8 @@ import React from 'react'
 import Image, { StaticImageData } from 'next/image'
 import { motion } from "framer-motion"
 
-import l3HarrisLogo from "@/assets/companyLogo/l3HarrisLogo.jpg"
-import navSeaLogo from "@/assets/companyLogo/navseaLogo.jpg"
-import noaaCrestLogo from "@/assets/companyLogo/noaaCrestLogo.png"
-import { tools } from '@/assets/ExperienceCard/imageSources'
+
+import { tools, companyLogo } from '@/assets/ExperienceCard/imageSources'
 
 type Props = {
     id: number;
@@ -31,11 +29,7 @@ export default function ExperienceCard(
     // Get the image source based on the key from the mapping object
     const toolsImages = tools[formedKey];
 
-    const companyLogo: { [key: string]: StaticImageData } = {
-        "Software Engineer-L3Harris": l3HarrisLogo,
-        "Software Engineer Intern-Naval Undersea Warfare Center Keyport Division": navSeaLogo,
-        "NOAA Undergraduate Scholar-NOAA-CREST": noaaCrestLogo
-    }
+    const companyLogoImages = companyLogo[formedKey];
 
     return (
         <article
@@ -58,14 +52,19 @@ export default function ExperienceCard(
                     once: true
                 }}
             >
-                <Image
-                    className="relative rounded-full h-32 w-32 xl:h-[200px] xl:w-[200px] 
-                    mx-auto object-cover"
-                    src={companyLogo[formedKey]}
-                    alt='experience-card'
-                    width={200}
-                    height={200}
-                />
+                {companyLogoImages?.map((logo: StaticImageData, index: number) =>
+                    <Image
+                        key={index}
+                        className="relative rounded-full h-32 w-32 xl:h-[200px] xl:w-[200px] 
+                mx-auto object-cover"
+                        src={logo}
+                        alt='experience-card'
+                        width={200}
+                        height={200}
+                        onError={() => { }}
+                    />
+                )}
+
 
             </motion.div>
             <div className='px-0 md:px-10 '>
@@ -79,7 +78,9 @@ export default function ExperienceCard(
                             src={src}
                             alt='experience-card-logo'
                             width={300}
-                            height={300} />
+                            height={300}
+                            onError={() => { }}
+                        />
                     )
                     }
                 </div>

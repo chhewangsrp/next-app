@@ -5,6 +5,7 @@ import Experience from '@/containers/experience';
 import Header from "@/containers/header";
 import Hero from "@/containers/hero-page";
 import Skills from '@/containers/skills-page';
+import Contact from '@/containers/contact-page';
 
 import store from '@/state/store';
 
@@ -32,6 +33,11 @@ export default function Home({ }: props) {
         <section id="skills" className="snap-center">
           <Skills />
         </section>
+
+        <section id="contact" className="snap-center">
+          <Contact />
+        </section>
+
       </div>
     </Provider>
   );

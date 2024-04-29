@@ -43,7 +43,9 @@ export default function Header({ }: props) {
                 }}
                 className='flex flex-row items-center cursor-pointer'>
                 <SocialIcon className="cursor-pointer" network='email' />
-                <p className='uppercase hidden md:inline-flex'>Get In Touch</p>
+                <p className='uppercase hidden md:inline-flex'>
+                    Get In Touch
+                </p>
             </motion.div>
         </header>
     )

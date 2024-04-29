@@ -45,12 +45,16 @@ export default function Experience({ }: Props) {
             className='flex flex-col relative text-lft md:text-left md:flex-row max-w-full px-10 
             justify-evenly mx-auto items-center h-screen'>
             <h3
-                className='absolute top-24 uppercase tracking-[20px] text-gray-500 text-2xl'>Experince</h3>
+                className='absolute top-24 uppercase tracking-[20px]
+                 text-gray-500 text-2xl'>
+                Experince
+            </h3>
 
             <div key="experienceCard" className="w-full flex space-x-5 overflow-x-scroll p-10 snap-x snap-mandatory">
                 {experiences?.map((experience: any) => (
                     <ExperienceCard
                         key={experience?.id}
+                        id={experience?.id}
                         title={experience?.title}
                         company={experience?.company}
                         description={experience?.description}
