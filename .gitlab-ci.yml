@@ -1,0 +1,24 @@
+stages:
+  - setup
+  - deploy
+
+variables:
+  DOCKER_HOST: tcp://localhost:2375 # Set Docker host
+  # get latest docker compose released tag
+  COMPOSE_VERSION: $(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
+
+before_script:
+  - apt-get update
+  - apt-get install -y docker.io
+
+setup_docker_compose:
+  stage: setup
+  script:
+    - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+    - chmod +x /usr/local/bin/docker-compose
+
+deploy:
+  stage: deploy
+  script:
+    - docker-compose down
+    - docker-compose up --build -d
