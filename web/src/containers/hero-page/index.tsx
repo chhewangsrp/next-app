@@ -1,19 +1,26 @@
-import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Cursor, useTypewriter } from 'react-simple-typewriter'
 
-import myImage from "@/assets/my-image.jpg";
+import myImage from "@/assets/myImage/my-image.jpg";
 import BackgroundCircles from '@/components/BackgroundCircles'
-import Link from 'next/link';
+import { RootState } from '@/state/store';
+import { loadAbout } from "@/state/actions/about";
 
 type Props = {}
 
 export default function Hero({ }: Props) {
+    const dispatch = useDispatch();
+    const aboutData = useSelector((state: RootState) => state.about);
+
+    React.useEffect(() => {
+        dispatch(loadAbout());
+    }, []);
+
     const [text, count] = useTypewriter({
-        words: [
-            "Hi, The name's Chhewang Sherpa",
-            "Guy-who-loves-soccer.tsx",
-            "<ButLovesToCodeMore/>"],
+        words: aboutData?.describeMe,
         loop: true,
         delaySpeed: 2000,
     })
@@ -25,7 +32,8 @@ export default function Hero({ }: Props) {
                 alt="My image"
                 src={myImage}
                 height="100"
-                width="100" />
+                width="100"
+                priority={true} />
             <div className='z-20'>
                 <h2 className='text-sm uppsercase text-gray-500 pb-2 
                 tracking-[15px]'>

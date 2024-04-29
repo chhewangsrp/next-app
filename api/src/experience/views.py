@@ -1,8 +1,10 @@
+import logging
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, serializers
 
-from .models import Experience
+
+LOGGER = logging.getLogger(__name__)
 
 
 class ExperienceSerializer(serializers.Serializer):
@@ -11,13 +13,17 @@ class ExperienceSerializer(serializers.Serializer):
     company = serializers.CharField()
     start_date = serializers.DateField()
     end_date = serializers.DateField()
-    description = serializers.CharField()
+    description = serializers.ListField(child=serializers.CharField())
 
 
 # Create your views here.
 class Experience(APIView):
 
+    LOGGER.info("Experience view accessed")
+
     def get(self, request):
+        from .models import Experience
+
         my_objects = Experience.objects.all()
 
         # Serialize the queryset

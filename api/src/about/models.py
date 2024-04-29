@@ -5,7 +5,7 @@ from django.db import models
 
 class About(models.Model):
     bio = models.CharField(max_length=500)
-    profile_picture = models.ImageField(upload_to="about")
+    describe_me = models.JSONField(default=list)
 
     def __str__(self):
         return "About Me"
