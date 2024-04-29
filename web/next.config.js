@@ -2,6 +2,42 @@
 const nextConfig = {}
 
 module.exports = {
+    images: {
+        remotePatterns: [
+
+            {
+                protocol: "https",
+                hostname: "cdn0.iconfinder.com",
+                port: '',
+                pathname: '/data/icons/**',
+            },
+            {
+                protocol: "https",
+                hostname: "cdn1.iconfinder.com",
+                port: '',
+                pathname: '/data/icons/**',
+            },
+            {
+                protocol: "https",
+                hostname: "cdn2.iconfinder.com",
+                port: '',
+                pathname: '/data/icons/**',
+            },
+            {
+                protocol: "https",
+                hostname: "cdn3.iconfinder.com",
+                port: '',
+                pathname: '/data/icons/**',
+            },
+            {
+                protocol: "https",
+                hostname: "cdn4.iconfinder.com",
+                port: '',
+                pathname: '/data/icons/**',
+            },
+        ],
+    },
+
     webpack: (config, _) => ({
         ...config,
         watchOptions: {
@@ -10,4 +46,5 @@ module.exports = {
             aggregateTimeout: 300,
         },
     }),
+
 }
