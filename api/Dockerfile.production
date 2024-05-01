@@ -3,6 +3,10 @@ FROM python:3.12.1
 ARG APPDIR=/portfolio/
 WORKDIR ${APPDIR}
 
+COPY ./src .
+
+EXPOSE 8000
+
 ENV PYTHONPATH ${APPDIR}
 ENV PYTHONBUFFERED 1
 
@@ -16,21 +20,10 @@ ADD requirements.txt requirements.dev.txt ${APPDIR}
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-COPY entrypoint.sh /entrypoint.sh
+COPY entrypoint.azure.sh /entrypoint.sh
 RUN chmod 777 /entrypoint.sh
 
-# Configure user
-ARG USER
-ARG UID
-RUN useradd --create-home --shell /bin/bash -u $UID -G users,sudo,root $USER && \
-    mkdir -p /home/$USER/.ssh/ && \
-    chown $USER:users /home/$USER/.ssh/ && \
-    echo $USER:workspace | chpasswd
 
-USER $USER
 ENV HOME /home/$USER
 
 ENTRYPOINT [ "/entrypoint.sh" ]
-
-EXPOSE 8080
-CMD ["gunicorn", "--bind", ":8080", "--workers", "3", "portfolio.wsgi:application"]

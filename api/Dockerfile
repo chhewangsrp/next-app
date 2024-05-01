@@ -6,6 +6,8 @@ WORKDIR ${APPDIR}
 ENV PYTHONPATH ${APPDIR}
 ENV PYTHONBUFFERED 1
 
+EXPOSE 8080
+
 RUN apt-get clean all && \
     apt-get update && \
     apt-get dist-upgrade -y && \
@@ -19,15 +21,5 @@ RUN pip install --upgrade pip && \
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod 777 /entrypoint.sh
 
-# Configure user
-ARG USER
-ARG UID
-RUN useradd --create-home --shell /bin/bash -u $UID -G users,sudo,root $USER && \
-    mkdir -p /home/$USER/.ssh/ && \
-    chown $USER:users /home/$USER/.ssh/ && \
-    echo $USER:workspace | chpasswd
-
-USER $USER
-ENV HOME /home/$USER
 
 ENTRYPOINT [ "/entrypoint.sh" ]

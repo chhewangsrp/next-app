@@ -1,6 +1,16 @@
 version: '3.7'
 
 services:
+  nginx:
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    restart: always
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+    - "80:80"
+
   # Postgres
   database:
     image: portfoliocontainerreg.azurecr.io/postgres
@@ -17,30 +27,25 @@ services:
   api:
     image: portfoliocontainerreg.azurecr.io/api
     build:
+      dockerfile: Dockerfile
       context: ./api/
-      args:
-        USER: ${USER}
-        UID: ${UID}
     restart: unless-stopped
     command: python manage.py runserver 0.0.0.0:8080
     depends_on:
       - database
-    environment:
-      - RUN_SETUP_DJANGO=true
-      - DEBUG=true
-      - HOST_NAME
-      - PORT_WEB
-      - PORT_API
-    ports:
-      - ${PORT_API}:8080
+    env_file:
+      - .env
     volumes:
-      # Mount local dev files into container
-      - ./api/src:/portfolio/
+      - ./api/src:/portfolio
+    ports:
+      - "8080:8080"
 
   # Node-based Next.js Webapp Development Server
   web:
     image: portfoliocontainerreg.azurecr.io/web
-    build: ./web/
+    build:
+      dockerfile: Dockerfile
+      context: ./web/
     restart: unless-stopped
     command: npm run dev
     depends_on:
@@ -51,6 +56,3 @@ services:
       - NEXT_TELEMETRY_DISABLED=1
     volumes:
       - ./web/:/portfolio/
-    ports:
-      - ${PORT_WEB}:3000
-      - 49153:49153

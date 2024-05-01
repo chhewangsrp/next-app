@@ -1,3 +1,5 @@
+import API_URL from ".";
+
 export type ExperienceData = {
     id: number;
     title: string;
@@ -31,7 +33,7 @@ export async function fetchExperienceData(): Promise<any> {
             return transform
         }
         const transform = ExperienceDataTransform(true);
-        const response = await fetch('https://chhewang-sherpa.azurewebsites.net/experience/', { method: "get" });
+        const response = await fetch(`${API_URL}/experience/`, { method: "get" });
 
         if (!response.ok) {
             throw new Error('Failed to fetch experience data');

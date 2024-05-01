@@ -1,3 +1,5 @@
+import API_URL from ".";
+
 export type AboutData = {
     id: number;
     bio: string;
@@ -18,7 +20,7 @@ export async function fetchAboutData(): Promise<any> {
             bio: data?.bio,
             describeMe: data?.describe_me,
         });
-        const response = await fetch('https://chhewang-sherpa.azurewebsites.net/about', { method: "get" });
+        const response = await fetch(`${API_URL}/about`, { method: "get" });
         if (!response.ok) {
             throw new Error('Failed to fetch about data');
         }
