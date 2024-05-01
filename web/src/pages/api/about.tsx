@@ -18,7 +18,7 @@ export async function fetchAboutData(): Promise<any> {
             bio: data?.bio,
             describeMe: data?.describe_me,
         });
-        const response = await fetch('http://localhost:4003/about/', { method: "get" });
+        const response = await fetch('https://chhewang-sherpa.azurewebsites.net/about', { method: "get" });
         if (!response.ok) {
             throw new Error('Failed to fetch about data');
         }

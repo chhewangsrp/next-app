@@ -33,6 +33,7 @@ PORT_API = os.getenv("PORT_API", None)
 
 ALLOWED_HOSTS = [
     HOST_NAME,
+    "127.0.0.1",
     f"http://{HOST_NAME}:{PORT_API}",
     f"http://{HOST_NAME}:{PORT_WEB}",
 ]
@@ -137,6 +138,8 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",

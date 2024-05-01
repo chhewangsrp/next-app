@@ -16,7 +16,7 @@ export default function Experience({ }: Props) {
 
     React.useEffect(() => {
         dispatch(loadExperience());
-    }, [dispatch])
+    }, [dispatch]);
 
     // Convert the object into an array of key-value pairs
     const experiencesArray = Object.entries(experienceData);

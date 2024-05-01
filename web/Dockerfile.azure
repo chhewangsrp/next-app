@@ -1,0 +1,10 @@
+FROM node:19.0
+
+ARG APPDIR=/portfolio/
+WORKDIR ${APPDIR}
+
+EXPOSE 3000
+
+COPY . .
+
+RUN npm ci
