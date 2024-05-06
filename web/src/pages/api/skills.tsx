@@ -1,5 +1,3 @@
-import API_URL from ".";
-
 export type SkillsData = {
     id: number;
     name: string;
@@ -30,7 +28,7 @@ export async function fetchSkillsData(): Promise<any> {
             return transform
         }
         const transform = SkillsDataTransform(true);
-        const response = await fetch(`${API_URL}/skills/`, { method: "get" });
+        const response = await fetch(`${process.env.API_URL}/api/skills/`, { method: "get" });
         if (!response.ok) {
             throw new Error('Failed to fetch skills data');
         }

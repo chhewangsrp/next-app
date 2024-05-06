@@ -3,14 +3,13 @@ version: '3.7'
 services:
   nginx:
     build:
-      dockerfile: Dockerfile.production
+      dockerfile: Dockerfile
       context: ./nginx
     restart: always
     ports:
     - "80:80"
   # Postgres
   database:
-    image: portfoliocontainerreg.azurecr.io/postgres
     build: ./db/
     restart: unless-stopped
     environment:
@@ -21,7 +20,6 @@ services:
       - 5432
   # Django API development server
   api:
-    image: portfoliocontainerreg.azurecr.io/api
     build:
       dockerfile: Dockerfile.production
       context: ./api/
@@ -30,10 +28,11 @@ services:
     depends_on:
       - database
     env_file:
-      - .env 
+      - .env
+    ports:
+      - 8080:8080 
   # Node-based Next.js Webapp Development Server
   web:
-    image: portfoliocontainerreg.azurecr.io/web
     build:
       dockerfile: Dockerfile.production
       context: ./web/
@@ -43,6 +42,6 @@ services:
       - api
       - database
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - NEXT_TELEMETRY_DISABLED=1
     

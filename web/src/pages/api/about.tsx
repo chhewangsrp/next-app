@@ -1,5 +1,3 @@
-import API_URL from ".";
-
 export type AboutData = {
     id: number;
     bio: string;
@@ -20,7 +18,7 @@ export async function fetchAboutData(): Promise<any> {
             bio: data?.bio,
             describeMe: data?.describe_me,
         });
-        const response = await fetch(`${API_URL}/about`, { method: "get" });
+        const response = await fetch(`${process.env.API_URL}/api/about`, { method: "get" });
         if (!response.ok) {
             throw new Error('Failed to fetch about data');
         }

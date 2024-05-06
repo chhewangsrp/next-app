@@ -1,5 +1,3 @@
-import API_URL from ".";
-
 export type ExperienceData = {
     id: number;
     title: string;
@@ -33,7 +31,7 @@ export async function fetchExperienceData(): Promise<any> {
             return transform
         }
         const transform = ExperienceDataTransform(true);
-        const response = await fetch(`${API_URL}/experience/`, { method: "get" });
+        const response = await fetch(`${process.env.API_URL}/api/experience/`, { method: "get" });
 
         if (!response.ok) {
             throw new Error('Failed to fetch experience data');
