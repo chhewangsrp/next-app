@@ -49,7 +49,7 @@ export default function About({ }: Props) {
                     onError={() => { }}
                 />
             </motion.div>
-            <div className='space-y-10 px-0 md:px-10'>
+            <div className='space-y-10 px-20 md:px-0 max-w-md mx-auto'>
                 <h4 className='text-4xl font-semibold'>Here is a <span className='underline decoration-[#7AB8AA]/50'>little</span> background</h4>
                 <p className="text-base">{aboutData?.bio}</p>
             </div>
