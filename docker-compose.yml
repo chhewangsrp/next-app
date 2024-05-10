@@ -2,6 +2,7 @@ version: '3.7'
 
 services:
   nginx:
+    image: chhewangsrp/portfolio-nginx
     build:
       dockerfile: Dockerfile
       context: ./nginx
@@ -13,7 +14,7 @@ services:
 
   # Postgres
   database:
-    image: portfoliocontainerreg.azurecr.io/postgres
+    image: chhewangsrp/portfolio-database
     build: ./db/
     restart: unless-stopped
     environment:
@@ -25,7 +26,7 @@ services:
 
   # Django API development server
   api:
-    image: portfoliocontainerreg.azurecr.io/api
+    image: chhewangsrp/portfolio-api
     build:
       dockerfile: Dockerfile
       context: ./api/
@@ -42,7 +43,7 @@ services:
 
   # Node-based Next.js Webapp Development Server
   web:
-    image: portfoliocontainerreg.azurecr.io/web
+    image: chhewangsrp/portfolio-web
     build:
       dockerfile: Dockerfile
       context: ./web/
