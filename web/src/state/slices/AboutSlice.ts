@@ -3,12 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type About = {
     id: number;
     bio: string;
-    descrineMe: string[];
+    describeMe: string[];
 }
 
 const initialState: About = {
     id: 0,
     bio: "",
+    describeMe: [],
 };
 
 export const AboutSlice = createSlice({

@@ -1,57 +1,45 @@
 version: '3.7'
 
 services:
+  nginx:
+    image: chhewangsrp/portfolio-prod-nginx
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    restart: always
+    ports:
+    - "80:80"
   # Postgres
   database:
-    image: portfolio/postgres-${USER}
+    image: chhewangsrp/portfolio-prod-database
     build: ./db/
     restart: unless-stopped
     environment:
+      POSTGRES_DB: portfolio
       POSTGRES_USER: postgres
-      POSTGRES_DB: django_portfolio
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
       ALLOW_IP_RANGE: 0.0.0.0/0
     ports:
       - 5432
-
   # Django API development server
   api:
-    image: portfolio/api-${USER}
+    image: chhewangsrp/portfolio-prod-api
     build:
+      dockerfile: Dockerfile.production
       context: ./api/
-      args:
-        USER: ${USER}
-        UID: ${UID}
     restart: unless-stopped
-    command: gunicorn --bind 0.0.0.0:8080 portfolio.wsgi
     depends_on:
       - database
-    environment:
-      - RUN_SETUP_DJANGO=true
-      - DEBUG=true
-      - HOST_NAME
-      - PORT_WEB
-      - PORT_API
-    ports:
-      - ${PORT_API}:8080
-    volumes:
-      # Mount local dev files into container
-      - ./api/src:/portfolio/
-
+    env_file:
+      - .env
   # Node-based Next.js Webapp Development Server
   web:
-    image: portfolio/web-${USER}
-    build: 
-      context: ./web/
+    image: chhewangsrp/portfolio-prod-web
+    build:
       dockerfile: Dockerfile.production
+      context: ./web/
     restart: unless-stopped
-    command: npm run dev
     depends_on:
       - api
       - database
-    environment:
-      - NODE_ENV=development
-      - NEXT_TELEMETRY_DISABLED=1
-    volumes:
-      - ./web/:/portfolio/
-    ports:
-      - 80:80
+    

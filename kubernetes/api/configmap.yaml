@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-configmap
+data:
+  DEBUG: "True"
+  POSTGRES_USER: "postgres"
+  POSTGRES_HOST: "database"
+  POSTGRES_PORT: "5432"
+  RUN_SETUP_DJANGO: "true"

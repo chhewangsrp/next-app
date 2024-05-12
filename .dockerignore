@@ -1,0 +1,11 @@
+.gitignore
+.next/
+.out/
+coverage.xml
+node_modules/
+.env.local
+.env.local.docker
+.DS_Store
+.coverage
+Dockerrun.aws.json
+htmlcov

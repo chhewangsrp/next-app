@@ -16,7 +16,7 @@ export type SkillsData = {
 export async function fetchSkillsData(): Promise<any> {
     try {
         const SkillsDataTransform = (many: boolean): Function => {
-            const transform = (data: any): ExperienceData => ({
+            const transform = (data: any): SkillsData => ({
                 id: data?.id,
                 name: data?.name,
                 description: data?.description,
@@ -28,7 +28,7 @@ export async function fetchSkillsData(): Promise<any> {
             return transform
         }
         const transform = SkillsDataTransform(true);
-        const response = await fetch('http://localhost:4003/skills/', { method: "get" });
+        const response = await fetch(`/api/skills/`, { method: "get" });
         if (!response.ok) {
             throw new Error('Failed to fetch skills data');
         }

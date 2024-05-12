@@ -12,6 +12,7 @@ if [ "$RUN_SETUP_DJANGO" = "true" ]; then
     echo "Django Is startedddd"
     python manage.py migrate
     python manage.py runscript scripts.populate_model
+    gunicorn portfolio.wsgi:application --bind 0.0.0.0:8080
 fi
 
 exec "$@"

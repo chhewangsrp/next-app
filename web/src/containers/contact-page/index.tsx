@@ -37,8 +37,7 @@ export default function Contact({ }: Props) {
             </h3>
             <div className='flex flex-col space-y-10'>
                 <h4 className='text-4xl font-semibold text-center'>
-                    Contact me for further inquiry
-                    <span className='underline decoration-[#eff7a8]'> Let&apos;s Have A Chat</span>
+                    Contact me for further inquiry <span className='underline decoration-[#eff7a8]'>Let&apos;s Have A Chat</span>
                 </h4>
                 <div className='space-y-10'>
                     <div className='flex items-center space-x-5 justify-center'>

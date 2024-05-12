@@ -6,7 +6,12 @@ from experience.models import Experience
 from skills.models import Skills
 from django.contrib.auth.models import User
 
-ABOUT = "I am a software engineer who loves soccer, music, and life."
+ABOUT = """
+I'm a software engineer with roots tracing back to Nepal. In 2018, I earned my Bachelor's degree in Computer Engineering from The City College of New York, 
+marking the beginning of my journey. My leap of faith led me to pursue education and opportunity in the United States. 
+Since then, I've immersed myself in the dynamic world of coding, where every line is a chance to innovate and problem-solve. 
+Off-screen, you'll find me on the soccer field or lost in the melodies of music, cherishing life's diverse experiences with boundless enthusiasm.
+"""
 DESCRIBE_ME = [
     "Hi, my name is Chhewang Sherpa.",
     "Guy who loves coding and coffee.",

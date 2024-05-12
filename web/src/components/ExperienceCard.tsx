@@ -84,7 +84,7 @@ export default function ExperienceCard(
                     )
                     }
                 </div>
-                <p className="uppercase py-5 text-gray-300">{startDate} - {endDate}</p>
+                <p className="py-5 text-gray-300">{startDate} - {endDate ? endDate : "Present"}</p>
                 <ul className="list-disc space-y-4 ml-5 text-lg h-36 overflow-y-scroll">
                     {description?.map((items: string, index: number) =>
                         <li key={index}>{items}</li>
