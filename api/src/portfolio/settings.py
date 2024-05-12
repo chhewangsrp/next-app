@@ -28,11 +28,12 @@ SECRET_KEY = "django-insecure--+6llay5xhfr9%5r0uo69+by6a3%*mk_2@())f*-%tr%xhr+hc
 DEBUG = True
 
 HOST_NAME = os.getenv("HOST_NAME")
-PORT_WEB = os.getenv("PORT_WEB", "3001")
+PORT_WEB = os.getenv("PORT_WEB", "3000")
 PORT_API = os.getenv("PORT_API", None)
 
 ALLOWED_HOSTS = [
     HOST_NAME,
+    "localhost",
     "127.0.0.1",
     f"http://{HOST_NAME}:{PORT_API}",
     f"http://{HOST_NAME}:{PORT_WEB}",
@@ -111,12 +112,12 @@ WSGI_APPLICATION = "portfolio.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv("POSTGRES_NAME", "django_portfolio"),
+        "NAME": os.getenv("POSTGRES_NAME", "portfolio"),
         "USER": os.getenv("POSTGRES_USER", "postgres"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "postgres"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
         "HOST": os.getenv("POSTGRES_HOST", "database"),
         "PORT": os.getenv("POSTGRES_PORT", "5432"),
-        "TEST": {"NAME": "test_django_cac"},
+        "TEST": {"NAME": "test_django"},
     }
 }
 

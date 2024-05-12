@@ -1,10 +1,18 @@
-FROM node:19.0 as build
+FROM node:19.0-alpine
+
+ENV NEXT_TELEMETRY_DISABLED=1
 
 ARG APPDIR=/portfolio/
 WORKDIR ${APPDIR}
 
-EXPOSE 3000
-
 COPY . .
 
-RUN npm ci
+RUN npm install --omit=dev
+RUN npm run build
+
+RUN addgroup --system --gid 1001 node.js
+RUN adduser --system --uid 1001 next.js
+
+USER next.js
+
+CMD ["npm", "run", "start"]

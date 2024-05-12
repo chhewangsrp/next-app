@@ -18,8 +18,8 @@ services:
     build: ./db/
     restart: unless-stopped
     environment:
+      POSTGRES_DB: portfolio
       POSTGRES_USER: postgres
-      POSTGRES_DB: django_portfolio
       ALLOW_IP_RANGE: 0.0.0.0/0
     ports:
       - 5432

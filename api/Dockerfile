@@ -22,6 +22,8 @@ FROM python:3.12.1-slim
 ARG APPDIR=/portfolio
 WORKDIR ${APPDIR}
 
+# Install gunicorn
+RUN pip install gunicorn
 # Install netcat
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \

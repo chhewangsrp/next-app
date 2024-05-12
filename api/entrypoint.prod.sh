@@ -10,8 +10,9 @@ echo "PostgreSQL started"
 # Apply migrations, create database tables
 if [ "$RUN_SETUP_DJANGO" = "true" ]; then
     echo "Django Is startedddd"
-    python /portfolio/manage.py migrate
-    python /portfolio/manage.py runscript scripts.populate_model
+    python manage.py migrate
+    python manage.py runscript scripts.populate_model
+    gunicorn portfolio.wsgi:application --bind 0.0.0.0:8080
 fi
 
 exec "$@"

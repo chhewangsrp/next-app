@@ -18,7 +18,7 @@ export async function fetchAboutData(): Promise<any> {
             bio: data?.bio,
             describeMe: data?.describe_me,
         });
-        const response = await fetch(`${process.env.API_URL}/api/about`, { method: "get" });
+        const response = await fetch(`/api/about`, { method: "get" });
         if (!response.ok) {
             throw new Error('Failed to fetch about data');
         }

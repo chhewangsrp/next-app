@@ -31,7 +31,7 @@ export async function fetchExperienceData(): Promise<any> {
             return transform
         }
         const transform = ExperienceDataTransform(true);
-        const response = await fetch(`${process.env.API_URL}/api/experience/`, { method: "get" });
+        const response = await fetch(`/api/experience/`, { method: "get" });
 
         if (!response.ok) {
             throw new Error('Failed to fetch experience data');
