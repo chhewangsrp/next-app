@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: chhewangsrp/portfolio-prod-nginx
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    restart: always
+    ports:
+    - "80:80"
+  # Postgres
+  database:
+    image: chhewangsrp/portfolio-prod-database
+    build: ./db/
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: portfolio
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      ALLOW_IP_RANGE: 0.0.0.0/0
+    ports:
+      - 5432
+  # Django API development server
+  api:
+    image: chhewangsrp/portfolio-prod-api
+    build:
+      dockerfile: Dockerfile.production
+      context: ./api/
+    restart: unless-stopped
+    depends_on:
+      - database
+    env_file:
+      - .env
+  # Node-based Next.js Webapp Development Server
+  web:
+    image: chhewangsrp/portfolio-prod-web
+    build:
+      dockerfile: Dockerfile.production
+      context: ./web/
+    restart: unless-stopped
+    depends_on:
+      - api
+      - database
+    

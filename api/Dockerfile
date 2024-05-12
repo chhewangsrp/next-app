@@ -1,33 +1,53 @@
-FROM python:3.12.1
+# Stage 1: Build dependencies and install Python packages
+FROM python:3.12.1 AS builder
 
-ARG APPDIR=/portfolio/
+ARG APPDIR=/portfolio
 WORKDIR ${APPDIR}
 
-ENV PYTHONPATH ${APPDIR}
-ENV PYTHONBUFFERED 1
-
-RUN apt-get clean all && \
-    apt-get update && \
-    apt-get dist-upgrade -y && \
-    apt-get autoremove && \
-    apt-get install --fix-missing -y sudo netcat-traditional zip unzip ca-certificates libsasl2-dev libldap2-dev
-
-ADD requirements.txt requirements.dev.txt ${APPDIR}
+# Copy requirements files and install Python dependencies
+COPY requirements.txt ${APPDIR}
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
+# Copy entrypoint script and set permissions
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod 777 /entrypoint.sh
 
-# Configure user
-ARG USER
-ARG UID
-RUN useradd --create-home --shell /bin/bash -u $UID -G users,sudo,root $USER && \
-    mkdir -p /home/$USER/.ssh/ && \
-    chown $USER:users /home/$USER/.ssh/ && \
-    echo $USER:workspace | chpasswd
+# Use sed to remove carriage return characters from entrypoint.sh
+RUN sed -i 's/\r$//' /entrypoint.sh && \
+    chmod +x /entrypoint.sh
 
-USER $USER
-ENV HOME /home/$USER
+# Stage 2: Final image
+FROM python:3.12.1-slim
 
-ENTRYPOINT [ "/entrypoint.sh" ]
+ARG APPDIR=/portfolio
+WORKDIR ${APPDIR}
+
+# Install gunicorn
+RUN pip install gunicorn
+# Install netcat
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    netcat-traditional \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install libpq-dev for PostgreSQL client library
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy Python dependencies from the builder stage
+COPY --from=builder /usr/local/lib/python3.12/site-packages/ /usr/local/lib/python3.12/site-packages/
+
+# Copy entrypoint script from the builder stage
+COPY --from=builder /entrypoint.sh /
+
+# Set environment variables
+ENV PYTHONPATH=${APPDIR} \
+    PYTHONBUFFERED=1
+
+# Expose port 8080
+EXPOSE 8080
+
+# Define entrypoint for the container
+ENTRYPOINT ["/entrypoint.sh"]

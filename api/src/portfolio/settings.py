@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+
 import os
 import sys
 from pathlib import Path
@@ -27,15 +28,34 @@ SECRET_KEY = "django-insecure--+6llay5xhfr9%5r0uo69+by6a3%*mk_2@())f*-%tr%xhr+hc
 DEBUG = True
 
 HOST_NAME = os.getenv("HOST_NAME")
-PORT_WEB = os.getenv("PORT_WEB", "3001")
+PORT_WEB = os.getenv("PORT_WEB", "3000")
 PORT_API = os.getenv("PORT_API", None)
 
 ALLOWED_HOSTS = [
     HOST_NAME,
+    "localhost",
+    "127.0.0.1",
     f"http://{HOST_NAME}:{PORT_API}",
     f"http://{HOST_NAME}:{PORT_WEB}",
 ]
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "simple": {
+            "format": "{levelname} - {module}:{lineno} - {message}",
+            "style": "{",
+        }
+    },
+    "handlers": {
+        "console": {"class": "logging.StreamHandler", "stream": sys.stdout},
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+}
 
 # Application definition
 
@@ -47,11 +67,17 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "corsheaders",
+    "django_extensions",
+    "about",
+    "experience",
+    "skills",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -86,12 +112,12 @@ WSGI_APPLICATION = "portfolio.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv("POSTGRES_NAME", "django_portfolio"),
+        "NAME": os.getenv("POSTGRES_NAME", "portfolio"),
         "USER": os.getenv("POSTGRES_USER", "postgres"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "postgres"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
         "HOST": os.getenv("POSTGRES_HOST", "database"),
         "PORT": os.getenv("POSTGRES_PORT", "5432"),
-        "TEST": {"NAME": "test_django_cac"},
+        "TEST": {"NAME": "test_django"},
     }
 }
 
@@ -112,6 +138,16 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:80",
+    "http://localhost:80",
+    "http://localhost",
 ]
 
 
