@@ -1,3 +1,4 @@
+certs
 *.pyc
 .env
 .env.development
