@@ -12,6 +12,7 @@ build-job: # This job runs the build and runs tests stage, which runs first.
   stage: test
   script:
     - echo '
+      RUN_SETUP_DJANGO=true
       HOST_NAME=${HOST_NAME}
       POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       PORT_WEB=${PORT_WEB}
