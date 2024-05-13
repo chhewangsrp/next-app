@@ -20,7 +20,6 @@ build-job: # This job runs the build and runs tests stage, which runs first.
     - docker-compose up --build -d api
     - echo "build complete."
     - echo "Running unit tests..."
-    - docker-compose exec api ls
     - docker-compose logs -f api
     - echo "Taking down containers"
     - docker-compose down
