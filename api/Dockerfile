@@ -25,8 +25,6 @@ WORKDIR ${APPDIR}
 # Install gunicorn
 RUN pip install gunicorn
 
-COPY ./src .
-
 # Install netcat
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
