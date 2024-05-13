@@ -21,9 +21,22 @@ stages: # List of stages for jobs, and their order of execution
   - test
   - reset
 
+variables:
+  HOST_NAME: $HOST_NAME
+  POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+  PORT_WEB: $PORT_WEB
+  SECRET_KEY: $SECRET_KEY
+
+# Set environment variable and run
 build-job: # This job runs in the build stage, which runs first.
   stage: build
   script:
+    - cat > .env <<EOF
+      HOST_NAME=$HOST_NAME
+      POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      PORT_WEB=$PORT_WEB
+      SECRET_KEY=$SECRET_KEY
+      EOF
     - docker-compose up --build -d
     - echo "build complete."
 
