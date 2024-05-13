@@ -19,7 +19,7 @@ build-job: # This job runs in the build stage, which runs first.
       PORT_WEB=${PORT_WEB}
       SECRET_KEY=${SECRET_KEY}
       ' > .env
-    - docker-compose up --build -d
+    - docker-compose up --build -d api
     - echo "build complete."
 
 unit-test-job: # This job runs in the test stage.
