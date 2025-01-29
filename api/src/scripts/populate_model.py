@@ -21,9 +21,30 @@ DESCRIBE_ME = [
 EXPERIENCE = [
     {
         "title": "Software Engineer",
+        "company": "Skyward Federal",
+        "start_date": "06/2024",
+        "end_date": "",
+        "description": [
+            """
+            Worked in a dynamic startup environment, conducting client demos and showcasing product
+            features for the Air Force as our prime customer, gaining extensive experience in addressing their
+            specific needs.
+            """,
+            """
+            Collaborated with UI/UX designer, using Figma to translate design mockups into functional web applications.
+            """,
+            """
+            Developed applications with Django, leveraging Django templates, Django admin, and writing 
+            custom admin modules, while utilizing Tailwind CSS, HTMX, and CSS to create robust, 
+            user-friendly interfaces.          
+            """,
+        ],
+    },
+    {
+        "title": "Sr. Associate Software Engineer",
         "company": "L3Harris",
         "start_date": "09/2019",
-        "end_date": "",
+        "end_date": "05/2024",
         "description": [
             """
             Worked as a core developer in developing a web application in Data Science 
@@ -74,6 +95,21 @@ EXPERIENCE = [
 ]
 
 SKILLS = [
+    {
+        "name": "aws",
+        "description": """
+            AWS (Amazon Web Services) is a comprehensive cloud computing platform offering over 200 services from data centers globally. 
+            Launched in 2006, it provides a wide range of IT infrastructure services including
+            """,
+        "skill_level": 60,
+    },
+    {
+        "name": "kubernetes",
+        "description": """
+            Kubernetes (often abbreviated as K8s) is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications.
+            """,
+        "skill_level": 60,
+    },
     {
         "name": "Python",
         "description": """
