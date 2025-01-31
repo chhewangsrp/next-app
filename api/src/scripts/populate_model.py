@@ -22,6 +22,7 @@ EXPERIENCE = [
     {
         "title": "Software Engineer",
         "company": "Skyward Federal",
+        "location": "Colorado Springs, CO",
         "start_date": "06/2024",
         "end_date": "",
         "description": [
@@ -43,6 +44,7 @@ EXPERIENCE = [
     {
         "title": "Sr. Associate Software Engineer",
         "company": "L3Harris",
+        "location": "Melbourne, FL",
         "start_date": "09/2019",
         "end_date": "05/2024",
         "description": [
@@ -68,6 +70,7 @@ EXPERIENCE = [
     {
         "title": "Software Engineer Intern",
         "company": "Naval Undersea Warfare Center Keyport Division",
+        "location": "Pearl Harbor, HI",
         "start_date": "06/2019",
         "end_date": "08/2019",
         "description": [
@@ -80,6 +83,7 @@ EXPERIENCE = [
     {
         "title": "NOAA Undergraduate Scholar",
         "company": "NOAA-CREST",
+        "location": "New York, NY",
         "start_date": "06/2018",
         "end_date": "12/2018",
         "description": [
@@ -118,7 +122,7 @@ SKILLS = [
             It supports multiple programming paradigms, including object-oriented, imperative, functional, and procedural,
             and has a large and comprehensive standard library.
             """,
-        "skill_level": 90,
+        "skill_level": 70,
     },
     {
         "name": "Django",
@@ -127,7 +131,7 @@ SKILLS = [
             Built by experienced developers, it takes care of much of the hassle of Web development,
             so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
             """,
-        "skill_level": 80,
+        "skill_level": 70,
     },
     {
         "name": "React",
@@ -136,14 +140,14 @@ SKILLS = [
             It is maintained by Facebook and a community of individual developers and companies.
             React can be used as a base in the development of single-page or mobile applications.
             """,
-        "skill_level": 80,
+        "skill_level": 70,
     },
     {
         "name": "git",
         "description": """
             Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
             """,
-        "skill_level": 80,
+        "skill_level": 70,
     },
     {
         "name": "Docker",
@@ -152,14 +156,14 @@ SKILLS = [
             Containers are isolated from one another and bundle their own software, libraries and configuration files;
             they can communicate with each other through well-defined channels.
             """,
-        "skill_level": 80,
+        "skill_level": 70,
     },
     {
         "name": "teamCity",
         "description": """
             TeamCity is a continuous integration and continuous delivery (CI/CD) server.
             """,
-        "skill_level": 80,
+        "skill_level": 70,
     },
     {
         "name": "Redux",
@@ -214,6 +218,7 @@ def populate_experience():
         experience = Experience(
             title=exp_data["title"],
             company=exp_data["company"],
+            location=exp_data["location"],
             start_date=start_date,
             end_date=end_date,
             description=exp_data["description"],
@@ -240,7 +245,8 @@ def populate_users():
     )
 
 
-# Populate the About model
-populate_about()
-populate_experience()
-populate_skills()
+def run():
+    # Populate the About model
+    populate_about()
+    populate_experience()
+    populate_skills()

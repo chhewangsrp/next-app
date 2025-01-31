@@ -25,11 +25,12 @@ export default function Experience({ }: Props) {
     const experiences = experiencesArray.reduce((acc: any[], [id, experience]: [string, any]) => {
         // Assuming each value is an object representing an experience
         // Modify the keys as per your actual data structure
-        const { title, company, description, startDate, endDate } = experience;
+        const { title, company, location, description, startDate, endDate } = experience;
         acc.push({
             id,
             title,
             company,
+            location,
             description,
             startDate,
             endDate
@@ -57,6 +58,7 @@ export default function Experience({ }: Props) {
                         id={experience?.id}
                         title={experience?.title}
                         company={experience?.company}
+                        location={experience?.location}
                         description={experience?.description}
                         startDate={experience?.startDate}
                         endDate={experience?.endDate}

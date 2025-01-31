@@ -2,6 +2,7 @@ export type ExperienceData = {
     id: number;
     title: string;
     company: string;
+    location: string;
     startDate: string;
     endDate: string;
     description: string[];
@@ -21,6 +22,7 @@ export async function fetchExperienceData(): Promise<any> {
                 id: data?.id,
                 title: data?.title,
                 company: data?.company,
+                location: data?.location,
                 startDate: data?.start_date,
                 endDate: data?.end_date,
                 description: data?.description,
