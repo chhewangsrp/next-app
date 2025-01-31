@@ -53,7 +53,7 @@ export default function Hero() {
                     {typing && (
                         <Typewriter
                             words={words}
-                            loop={5}
+                            loop={false}
                             typeSpeed={70}
                             deleteSpeed={50}
                             delaySpeed={2000}
