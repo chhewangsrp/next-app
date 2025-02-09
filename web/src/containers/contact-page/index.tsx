@@ -15,11 +15,11 @@ type Inputs = {
 }
 
 export default function Contact({ }: Props) {
-    const { register, handleSubmit } = useForm<Inputs>();
+    // const { register, handleSubmit } = useForm<Inputs>();
 
-    const onSubmit: SubmitHandler<Inputs> = (formData) => {
-        // window.location.href = `mailto:chhewangsrp@gmail.com?subject=${formData.subject}&body=${formData.message}`;
-    }
+    // const onSubmit: SubmitHandler<Inputs> = (formData) => {
+    //     // window.location.href = `mailto:chhewangsrp@gmail.com?subject=${formData.subject}&body=${formData.message}`;
+    // }
 
 
     return (
@@ -37,9 +37,11 @@ export default function Contact({ }: Props) {
             </h3>
             <div className='flex flex-col space-y-10'>
                 <h4 className='text-4xl font-semibold text-center'>
-                    Contact me for further inquiry <span className='underline decoration-[#eff7a8]'>Let&apos;s Have A Chat</span>
+                    Contact me via <a href="https://www.linkedin.com/in/chhewang-sherpa-932027b3/" className='underline decoration-[#eff7a8]'>Linkedin
+                    </a> for further inquiry.
+                    Let&apos;s Have A Chat
                 </h4>
-                <div className='space-y-10'>
+                {/* <div className='space-y-10'>
                     <div className='flex items-center space-x-5 justify-center'>
                         <PhoneIcon className='text-[#f6f7a8] h-7 w-7 animate-pulse' />
                         <p className='text-2xl'>1234567890</p>
@@ -53,42 +55,7 @@ export default function Contact({ }: Props) {
                         <p className='text-2xl'>123 Developer Lane</p>
                     </div>
 
-                    <form className="flex flex-col space-y-2 w-fit mx-auto" onSubmit={handleSubmit(onSubmit)}>
-                        <div className='flex space-x-2'>
-                            <input
-                                {...register('name')}
-                                className='contactInput'
-                                type="text"
-                                placeholder="Name"
-                            />
-                            <input
-                                {...register('email')}
-                                className='contactInput'
-                                type="email"
-                                placeholder="Email"
-                            />
-                        </div>
-
-                        <input
-                            {...register('subject')}
-                            className='contactInput'
-                            type="text"
-                            placeholder="Subject"
-                        />
-                        <textarea
-                            {...register('message')}
-                            className='contactInput'
-                            placeholder='Message'
-                        />
-                        <button
-                            type="submit"
-                            className='bg-[#e2b41a] py-5 px-10 rounded-md text-black font-bold text-lg'>
-                            Submit
-                        </button>
-
-                    </form>
-
-                </div>
+                </div> */}
 
 
             </div>

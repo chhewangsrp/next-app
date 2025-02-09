@@ -11,6 +11,7 @@ class ExperienceSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField()
     company = serializers.CharField()
+    location = serializers.CharField()
     start_date = serializers.DateField()
     end_date = serializers.DateField()
     description = serializers.ListField(child=serializers.CharField())
