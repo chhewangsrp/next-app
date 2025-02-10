@@ -4,6 +4,7 @@ type Experience = {
     id: number;
     title: string;
     company: string;
+    location: string;
     startDate: string;
     endDate: string;
     description: string;
@@ -13,6 +14,7 @@ const initialState: Experience = {
     id: 0,
     title: "",
     company: "",
+    location: "",
     startDate: "",
     endDate: "",
     description: "",
