@@ -32,7 +32,6 @@ services:
       dockerfile: Dockerfile
       context: ./api/
     restart: unless-stopped
-    command: python manage.py runserver 0.0.0.0:8080
     depends_on:
       - database
     env_file:
@@ -40,7 +39,7 @@ services:
     volumes:
       - ./api/src:/portfolio
     ports:
-      - "8080:8080"
+      - "5678:5678"
 
   # Node-based Next.js Webapp Development Server
   web:
