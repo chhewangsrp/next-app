@@ -1,0 +1,24 @@
+stages: # List of stages for jobs, and their order of execution
+  - test
+
+variables:
+  HOST_NAME: $HOST_NAME
+  POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+  PORT_WEB: $PORT_WEB
+  SECRET_KEY: $SECRET_KEY
+
+# Set environment variable and run
+build-job: # This job runs the build and runs tests stage, which runs first.
+  stage: test
+  script:
+    - echo '
+      RUN_SETUP_DJANGO=true
+      HOST_NAME=${HOST_NAME}
+      POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      PORT_WEB=${PORT_WEB}
+      SECRET_KEY=${SECRET_KEY}
+      ' > .env
+    - docker-compose up --build -d api
+    - echo "Taking down containers"
+    - docker-compose down
+    - echo "reset complete"

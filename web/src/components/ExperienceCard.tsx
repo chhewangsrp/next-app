@@ -9,6 +9,7 @@ type Props = {
     id: number;
     title: string;
     company: string;
+    location: string;
     description: string[];
     startDate: string;
     endDate: string;
@@ -19,6 +20,7 @@ export default function ExperienceCard(
         id,
         title,
         company,
+        location,
         description,
         startDate,
         endDate,
@@ -70,6 +72,7 @@ export default function ExperienceCard(
             <div className='px-0 md:px-10 '>
                 <h4 className='text-4xl font-light'>{title}</h4>
                 <p className='font-bold text-2xl mt-1'>{company}</p>
+                <p className='text-xl mt-1'>{location}</p>
                 <div className="flex space-x-2 my-2">
                     {toolsImages?.map((src: string, index: number) =>
                         <Image

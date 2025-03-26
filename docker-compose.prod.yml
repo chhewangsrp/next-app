@@ -1,14 +1,15 @@
-version: '3.7'
+version: "3.7"
 
 services:
   nginx:
     image: chhewangsrp/portfolio-prod-nginx
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.production
       context: ./nginx
     restart: always
     ports:
-    - "80:80"
+      - "80:80"
+      - "443:443"
   # Postgres
   database:
     image: chhewangsrp/portfolio-prod-database
@@ -42,4 +43,3 @@ services:
     depends_on:
       - api
       - database
-    

@@ -1,5 +1,7 @@
 
 export const skillTools: { [key: string]: string[] } = {
+    "aws": ["https://cdn0.iconfinder.com/data/icons/font-awesome-brands-vol-1/640/aws-512.png"],
+    "kubernetes": ["https://cdn2.iconfinder.com/data/icons/mixd/512/16_kubernetes-512.png"],
     "Python": ["https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/267_Python_logo-512.png"],
     "Django": ["https://cdn2.iconfinder.com/data/icons/boxicons-logos/24/bxl-django-512.png"],
     "React": ["https://cdn0.iconfinder.com/data/icons/logos-brands-in-colors/128/react_color-512.png"],

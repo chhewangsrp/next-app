@@ -21,9 +21,32 @@ DESCRIBE_ME = [
 EXPERIENCE = [
     {
         "title": "Software Engineer",
-        "company": "L3Harris",
-        "start_date": "09/2019",
+        "company": "Skyward Federal",
+        "location": "Colorado Springs, CO",
+        "start_date": "06/2024",
         "end_date": "",
+        "description": [
+            """
+            Worked in a dynamic startup environment, conducting client demos and showcasing product
+            features for the Air Force as our prime customer, gaining extensive experience in addressing their
+            specific needs.
+            """,
+            """
+            Collaborated with UI/UX designer, using Figma to translate design mockups into functional web applications.
+            """,
+            """
+            Developed applications with Django, leveraging Django templates, Django admin, and writing 
+            custom admin modules, while utilizing Tailwind CSS, HTMX, and CSS to create robust, 
+            user-friendly interfaces.          
+            """,
+        ],
+    },
+    {
+        "title": "Sr. Associate Software Engineer",
+        "company": "L3Harris",
+        "location": "Melbourne, FL",
+        "start_date": "09/2019",
+        "end_date": "05/2024",
         "description": [
             """
             Worked as a core developer in developing a web application in Data Science 
@@ -47,6 +70,7 @@ EXPERIENCE = [
     {
         "title": "Software Engineer Intern",
         "company": "Naval Undersea Warfare Center Keyport Division",
+        "location": "Pearl Harbor, HI",
         "start_date": "06/2019",
         "end_date": "08/2019",
         "description": [
@@ -59,6 +83,7 @@ EXPERIENCE = [
     {
         "title": "NOAA Undergraduate Scholar",
         "company": "NOAA-CREST",
+        "location": "New York, NY",
         "start_date": "06/2018",
         "end_date": "12/2018",
         "description": [
@@ -75,6 +100,21 @@ EXPERIENCE = [
 
 SKILLS = [
     {
+        "name": "aws",
+        "description": """
+            AWS (Amazon Web Services) is a comprehensive cloud computing platform offering over 200 services from data centers globally. 
+            Launched in 2006, it provides a wide range of IT infrastructure services including
+            """,
+        "skill_level": 60,
+    },
+    {
+        "name": "kubernetes",
+        "description": """
+            Kubernetes (often abbreviated as K8s) is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications.
+            """,
+        "skill_level": 60,
+    },
+    {
         "name": "Python",
         "description": """
             Python is an interpreted, high-level, general-purpose programming language.
@@ -82,7 +122,7 @@ SKILLS = [
             It supports multiple programming paradigms, including object-oriented, imperative, functional, and procedural,
             and has a large and comprehensive standard library.
             """,
-        "skill_level": 90,
+        "skill_level": 70,
     },
     {
         "name": "Django",
@@ -91,7 +131,7 @@ SKILLS = [
             Built by experienced developers, it takes care of much of the hassle of Web development,
             so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
             """,
-        "skill_level": 80,
+        "skill_level": 70,
     },
     {
         "name": "React",
@@ -100,14 +140,14 @@ SKILLS = [
             It is maintained by Facebook and a community of individual developers and companies.
             React can be used as a base in the development of single-page or mobile applications.
             """,
-        "skill_level": 80,
+        "skill_level": 70,
     },
     {
         "name": "git",
         "description": """
             Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
             """,
-        "skill_level": 80,
+        "skill_level": 70,
     },
     {
         "name": "Docker",
@@ -116,14 +156,14 @@ SKILLS = [
             Containers are isolated from one another and bundle their own software, libraries and configuration files;
             they can communicate with each other through well-defined channels.
             """,
-        "skill_level": 80,
+        "skill_level": 70,
     },
     {
         "name": "teamCity",
         "description": """
             TeamCity is a continuous integration and continuous delivery (CI/CD) server.
             """,
-        "skill_level": 80,
+        "skill_level": 70,
     },
     {
         "name": "Redux",
@@ -178,6 +218,7 @@ def populate_experience():
         experience = Experience(
             title=exp_data["title"],
             company=exp_data["company"],
+            location=exp_data["location"],
             start_date=start_date,
             end_date=end_date,
             description=exp_data["description"],
@@ -204,7 +245,8 @@ def populate_users():
     )
 
 
-# Populate the About model
-populate_about()
-populate_experience()
-populate_skills()
+def run():
+    # Populate the About model
+    populate_about()
+    populate_experience()
+    populate_skills()
