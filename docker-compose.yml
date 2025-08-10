@@ -57,3 +57,14 @@ services:
       - NEXT_TELEMETRY_DISABLED=1
     volumes:
       - ./web/:/portfolio/
+
+volumes:
+  tilesdata:
+    driver: local
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.28.0/22
