@@ -1,20 +1,51 @@
-# next-app
-This is an attempt on learning next js. For purpose of local development, I used docker-compose to build and run my Dockerfiles with volume mounted so that I can develop and also be able to test my code without having to re-build my images.
 
-For production (Work In progress), I wanted to deploy in a kubernetes cluster and the architecture looks like this:
+# next-app
+This project is a learning attempt with Next.js. For local development, I use Docker Compose to build and run my Dockerfiles with volume mounts, allowing for live code changes without rebuilding images.
+
+## Production (Kubernetes & Helm)
+For production (Work In Progress), the app is deployed in a Kubernetes cluster. The architecture looks like this:
 
 ![screenshot](portfolio-kubernetes-architecture.png)
 
-With the above architecture, I was able to use relative paths to fetch data from my backend service as such from my Next.js app:
+With this architecture, the Next.js app can fetch data from the backend using relative paths, e.g.:
 `const response = await fetch("/api/skills");`
 
-In this setup:
-- Ingress Receives incoming requests from external clients and routes them to the Nginx reverse proxy.
-- The Nginx service acts as a reverse proxy, forwarding requests from the frontend service to the backend service.
-- Requests from the frontend service are first directed to the Nginx service, which then forwards them to the backend service.
-- Responses from the backend are sent back through the Nginx service to the frontend service.
-- Both the frontend and backend services serve their respective files and applications.
+### How Traffic Flows
+- **Ingress** receives incoming requests and routes them to the Nginx reverse proxy.
+- **Nginx** acts as a reverse proxy, forwarding requests from the frontend to the backend service.
+- Requests from the frontend go to Nginx, which then forwards them to the backend.
+- Responses from the backend are sent back through Nginx to the frontend.
+- Both frontend and backend serve their respective files/applications.
 
-TODO:
-- Making https requests.
-- Deploy in the cloud service provider.
+## Port Forwarding (for Local Access)
+If you want to access your site locally without configuring DNS or Ingress, you can use port forwarding:
+
+```
+kubectl port-forward service/nginx 8080:80
+```
+Then open [http://localhost:8080](http://localhost:8080) in your browser.
+
+## Helm Usage
+Helm is used to manage Kubernetes manifests for this project. Helm allows you to templatize your Kubernetes YAML files and manage deployments, upgrades, and rollbacks easily.
+
+### Common Helm Commands
+- **Install:**
+	```
+	helm install portfolio ./chart
+	```
+- **Upgrade:**
+	```
+	helm upgrade portfolio ./chart
+	```
+- **Uninstall:**
+	```
+	helm uninstall portfolio
+	```
+
+### Helm Chart Structure
+- `values.yaml`: Central place for configuration (images, ports, env vars, etc.)
+- `templates/`: Contains Kubernetes manifests (deployments, services, ingress, etc.)
+
+## TODO
+- Enable HTTPS requests
+- Deploy to a cloud service provider
