@@ -9,12 +9,17 @@ import noaaCrestLogo from "@/assets/companyLogo/noaaCrestLogo.png"
 export const tools: { [key: string]: string[] } = {
      "Senior Software Engineer-The Boeing Company": [
         "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/267_Python_logo-512.png",
-        "https://cdn2.iconfinder.com/data/icons/boxicons-logos/24/bxl-django-512.png",
-        "https://cdn3.iconfinder.com/data/icons/teenyicons-solid-vol-3/15/tailwind-512.png",
         "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/97_Docker_logo_logos-512.png",
-        "https://cdn0.iconfinder.com/data/icons/font-awesome-brands-vol-1/640/aws-512.png",
         "https://cdn2.iconfinder.com/data/icons/mixd/512/16_kubernetes-512.png",
+        "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/webp/helm.webp",
+        "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/webp/keycloak.webp",
         "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/144_Gitlab_logo_logos-512.png",
+        "https://cdn-icons-png.magnific.com/512/5968/5968342.png",
+        "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/webp/vite.webp",
+        "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/webp/kafka-dark.webp",
+        "https://cdn.jsdelivr.net/gh/selfhst/icons/webp/elasticsearch.webp",
+        "https://cdn-icons-png.magnific.com/512/15484/15484308.png",
+
     ],
     "Software Engineer-Skyward Federal": [
         "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/267_Python_logo-512.png",

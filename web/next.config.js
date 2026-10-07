@@ -35,6 +35,18 @@ module.exports = {
                 port: '',
                 pathname: '/data/icons/**',
             },
+            {
+                protocol: "https",
+                hostname: "cdn-icons-png.magnific.com",
+                port: '',
+                pathname: '/512/**',
+            },
+            {
+                protocol: "https",
+                hostname: "cdn.jsdelivr.net",
+                port: '',
+                pathname: '/gh/**',
+            },
         ],
     },
 
