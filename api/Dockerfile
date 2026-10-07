@@ -1,54 +1,53 @@
-# Stage 1: Build dependencies and install Python packages
-FROM python:3.12.1 AS builder
+FROM python:3.14.4-slim
 
 ARG APPDIR=/portfolio
+ARG UID=1000
+ARG GID=1000
+
 WORKDIR ${APPDIR}
 
-# Copy requirements files and install Python dependencies
-COPY requirements.txt ${APPDIR}
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        libpq5 \
+        netcat-traditional \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy entrypoint script and set permissions
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+ENV UV_PROJECT_ENVIRONMENT=/opt/venv \
+    UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=${APPDIR}
+
+# Workspace metadata
+COPY pyproject.toml uv.lock ./
+COPY src/pyproject.toml src/pyproject.toml
+
+# Install dependencies
+RUN uv sync --frozen 
+
+# Non-root user
+RUN groupadd --gid ${GID} app && \
+    useradd \
+        --uid ${UID} \
+        --gid ${GID} \
+        --create-home \
+        --shell /bin/bash \
+        app
+
 COPY entrypoint.sh /entrypoint.sh
 
-# Use sed to remove carriage return characters from entrypoint.sh
 RUN sed -i 's/\r$//' /entrypoint.sh && \
-    chmod +x /entrypoint.sh
+    chmod +x /entrypoint.sh && \
+    chown app:app /entrypoint.sh
 
-# Stage 2: Final image
-FROM python:3.12.1-slim
+ENV PATH="/opt/venv/bin:${PATH}"
 
-ARG APPDIR=/portfolio
-WORKDIR ${APPDIR}
+USER app
 
-# Install gunicorn
-RUN pip install gunicorn
+EXPOSE 8000 5678
 
-# Install netcat
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    netcat-traditional \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install libpq-dev for PostgreSQL client library
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy Python dependencies from the builder stage
-COPY --from=builder /usr/local/lib/python3.12/site-packages/ /usr/local/lib/python3.12/site-packages/
-
-# Copy entrypoint script from the builder stage
-COPY --from=builder /entrypoint.sh /
-
-# Set environment variables
-ENV PYTHONPATH=${APPDIR} \
-    PYTHONBUFFERED=1
-
-# Expose port 8080
-EXPOSE 8080
-
-# Define entrypoint for the container
 ENTRYPOINT ["/entrypoint.sh"]
+

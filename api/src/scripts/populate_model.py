@@ -7,9 +7,9 @@ from skills.models import Skills
 from django.contrib.auth.models import User
 
 ABOUT = """
-I'm a software engineer with roots tracing back to Nepal. In 2018, I earned my Bachelor's degree in Computer Engineering from The City College of New York, 
-marking the beginning of my journey. My leap of faith led me to pursue education and opportunity in the United States. 
-Since then, I've immersed myself in the dynamic world of coding, where every line is a chance to innovate and problem-solve. 
+I'm a software engineer with roots tracing back to Nepal. In 2018, I earned my Bachelor's degree in Computer Engineering from The City College of New York,
+marking the beginning of my journey. My leap of faith led me to pursue education and opportunity in the United States.
+Since then, I've immersed myself in the dynamic world of coding, where every line is a chance to innovate and problem-solve.
 Off-screen, you'll find me on the soccer field or lost in the melodies of music, cherishing life's diverse experiences with boundless enthusiasm.
 """
 DESCRIBE_ME = [
@@ -20,11 +20,38 @@ DESCRIBE_ME = [
 
 EXPERIENCE = [
     {
+        "title": "Senior Software Engineer",
+        "company": "The Boeing Company",
+        "location": "Colorado Springs, CO",
+        "start_date": "01/2026",
+        "end_date": "",
+        "description": [
+            """
+            Developed a MILSATCOM ground system software application with Python and FastAPI, building
+            RESTful backend services and async endpoints with Vite powering the operator-facing frontend, all
+            operating within both classified and unclassified networks.
+            """,
+            """
+            Designed and implemented a microservices-based architecture to enable independent deployability,
+            versioning, and fault isolation.
+            """,
+            """
+            Secured APIs and microservices using OAuth 2.0, JWT authentication, RBAC, ABAC, and RLS
+            supporting security standards.
+            """,
+            """
+             Engineered system integrations using Kafka-based event, OpenAPI JSON specs, and REST APIs to
+            coordinate seamless data flow among both internal and external ground system components, ensuring
+            reliable message delivery and system interoperability.
+            """,
+        ],
+    },
+    {
         "title": "Software Engineer",
         "company": "Skyward Federal",
         "location": "Colorado Springs, CO",
         "start_date": "06/2024",
-        "end_date": "",
+        "end_date": "12/2025",
         "description": [
             """
             Worked in a dynamic startup environment, conducting client demos and showcasing product
@@ -35,9 +62,9 @@ EXPERIENCE = [
             Collaborated with UI/UX designer, using Figma to translate design mockups into functional web applications.
             """,
             """
-            Developed applications with Django, leveraging Django templates, Django admin, and writing 
-            custom admin modules, while utilizing Tailwind CSS, HTMX, and CSS to create robust, 
-            user-friendly interfaces.          
+            Developed applications with Django, leveraging Django templates, Django admin, and writing
+            custom admin modules, while utilizing Tailwind CSS, HTMX, and CSS to create robust,
+            user-friendly interfaces.
             """,
         ],
     },
@@ -49,7 +76,7 @@ EXPERIENCE = [
         "end_date": "05/2024",
         "description": [
             """
-            Worked as a core developer in developing a web application in Data Science 
+            Worked as a core developer in developing a web application in Data Science
             and Architecture team and led the design of software architecture, backend implementation, database setup, and
             its deployment using technologies like Docker, python/Django framework, psql, JavaScript,
             React, and Redux.
@@ -63,7 +90,7 @@ EXPERIENCE = [
             Led the design and development of a pilot project, creating a service for system engineers to
             automate requirement capture, data lineage, and requirements hierarchy on JIRA from Magic
             Draw, leveraging teamwork cloud API and message queue service with Docker, Python, Kafka,
-            Magic Draw, Teamwork Clouds, and JIRA.            
+            Magic Draw, Teamwork Clouds, and JIRA.
             """,
         ],
     },
@@ -102,7 +129,7 @@ SKILLS = [
     {
         "name": "aws",
         "description": """
-            AWS (Amazon Web Services) is a comprehensive cloud computing platform offering over 200 services from data centers globally. 
+            AWS (Amazon Web Services) is a comprehensive cloud computing platform offering over 200 services from data centers globally.
             Launched in 2006, it provides a wide range of IT infrastructure services including
             """,
         "skill_level": 60,
@@ -185,68 +212,92 @@ SKILLS = [
 ]
 
 
-# Define function to populate About model
 def populate_about():
-    about_instance = About()
-    about_instance.bio = ABOUT
-    about_instance.describe_me = DESCRIBE_ME
+    about, created = About.objects.get_or_create(
+        defaults={
+            "bio": ABOUT,
+            "describe_me": DESCRIBE_ME,
+        }
+    )
 
-    about_instance.save()
+    if created:
+        print("Created About")
+    else:
+        print("Skipped existing About")
 
 
 def populate_experience():
-    experience = Experience()
-
-    # Iterate over the EXPERIENCE list and create Experience instances
-
     for exp_data in EXPERIENCE:
-        # Convert start and end dates to datetime objects
-        start_date_str = exp_data["start_date"]
-        end_date_str = exp_data["end_date"]
-
-        if start_date_str:
-            start_date = datetime.strptime(start_date_str, "%m/%Y")
-        else:
-            start_date = None
-
-        if end_date_str:
-            end_date = datetime.strptime(end_date_str, "%m/%Y")
-        else:
-            end_date = None
-
-        # Create the Experience instance
-        experience = Experience(
-            title=exp_data["title"],
-            company=exp_data["company"],
-            location=exp_data["location"],
-            start_date=start_date,
-            end_date=end_date,
-            description=exp_data["description"],
+        start_date = (
+            datetime.strptime(exp_data["start_date"], "%m/%Y")
+            if exp_data["start_date"]
+            else None
         )
 
-        # Save the instance to the database
-        experience.save()
+        end_date = (
+            datetime.strptime(exp_data["end_date"], "%m/%Y")
+            if exp_data["end_date"]
+            else None
+        )
+
+        experience, created = Experience.objects.get_or_create(
+            title=exp_data["title"],
+            company=exp_data["company"],
+            start_date=start_date,
+            defaults={
+                "location": exp_data["location"],
+                "end_date": end_date,
+                "description": exp_data["description"],
+            },
+        )
+
+        if created:
+            print(f"Created experience: {experience.title} at {experience.company}")
+        else:
+            print(
+                f"Skipped existing experience: "
+                f"{experience.title} at {experience.company}"
+            )
 
 
 def populate_skills():
-    skill = Skills()
     for skill_data in SKILLS:
-        skill = Skills(
+        skill, created = Skills.objects.get_or_create(
             name=skill_data["name"],
-            description=skill_data["description"],
-            skill_level=skill_data["skill_level"],
+            defaults={
+                "description": skill_data["description"],
+                "skill_level": skill_data["skill_level"],
+            },
         )
-        skill.save()
+
+        if created:
+            print(f"Created skill: {skill.name}")
+        else:
+            print(f"Skipped existing skill: {skill.name}")
 
 
 def populate_users():
-    User.objects.create_user(
-        email=os.getenv("USER_EMAIL"),
+    email = os.getenv("USER_EMAIL")
+
+    if not email:
+        print("USER_EMAIL is not set; skipping user creation.")
+        return
+
+    user, created = User.objects.get_or_create(
+        email=email,
+        defaults={
+            "username": email,
+        },
     )
+
+    if created:
+        print(f"Created user: {email}")
+    else:
+        print(f"Skipped existing user: {email}")
 
 
 def run():
-    # Populate the About model
     populate_about()
     populate_experience()
     populate_skills()
+    populate_users()

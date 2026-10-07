@@ -19,6 +19,6 @@ fi
 PORT="${WSGI_PORT:-8000}"
 DBG_PORT="${DBG_PORT:-5678}"
 python manage.py diffsettings --all
-exec python -m debugpy --wait-for-client --listen 0.0.0.0:"$DBG_PORT" manage.py runserver 0.0.0.0:"$PORT"
+exec python -m debugpy --listen 0.0.0.0:"$DBG_PORT" manage.py runserver 0.0.0.0:"$PORT"
 
 exec "$@"

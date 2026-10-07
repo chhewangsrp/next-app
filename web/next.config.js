@@ -47,4 +47,6 @@ module.exports = {
         },
     }),
 
+    turbopack: {},
+    allowedDevOrigins: ['my-portfolio.local', 'localhost']
 }

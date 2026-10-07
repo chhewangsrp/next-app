@@ -1,0 +1,21 @@
+[project]
+name = "portfolio-api"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "django",
+    "djangorestframework",
+    "django-cors-headers",
+    "django-extensions",
+    "psycopg[binary]",
+    "debugpy",
+]
+
+[tool.uv]
+package = false
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16.10",
+]
+

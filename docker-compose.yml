@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   nginx:
     image: chhewangsrp/portfolio-nginx
@@ -21,16 +19,20 @@ services:
     environment:
       POSTGRES_DB: portfolio
       POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
       ALLOW_IP_RANGE: 0.0.0.0/0
     ports:
-      - 5432
+      - "5432:5432"
 
   # Django API development server
   api:
     image: chhewangsrp/portfolio-api
     build:
+      context: ./api
       dockerfile: Dockerfile
-      context: ./api/
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     restart: unless-stopped
     depends_on:
       - database
@@ -39,6 +41,7 @@ services:
     volumes:
       - ./api/src:/portfolio
     ports:
+      - "8000:8000"
       - "5678:5678"
 
   # Node-based Next.js Webapp Development Server
